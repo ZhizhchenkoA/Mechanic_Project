@@ -4,8 +4,7 @@ __pycache__/
 *$py.class
 .idea
 # C extensions
-out
-latex/out
+
 # Distribution / packaging
 .Python
 build/
