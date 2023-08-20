@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 .idea
 # C extensions
-*.so
-
+out
+latex/out
 # Distribution / packaging
 .Python
 build/
@@ -148,7 +148,7 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
-
+auxil
 # Cython debug symbols
 cython_debug/
 
