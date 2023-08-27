@@ -1,8 +1,5 @@
 \documentclass[12pt, a4paper]{article}
 
-% Language setting
-% Replace `english' with e.g. `spanish' to change the document language
-
 \usepackage[russian]{babel}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -10,11 +7,8 @@
 \usepackage{physics}
 \usepackage{amssymb}
 \usepackage{indentfirst}
-%\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
-% Set page size and margins
-% Replace `letterpaper' with `a4paper' for UK/EU standard size
 \usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-% Useful packages
+
 
 
 \usepackage{graphicx}
@@ -48,16 +42,15 @@
 Из уравнений Гамильтона следует, что 
 
 \begin{equation}
-\label{u_xy}
     \begin{cases}
         ax = U_x = \ddot x - 2 \dot y\\
-        - by = - U_y = \ddot y + 2 \dot x 
+        by = U_y = \ddot y + 2 \dot x
     \end{cases}
     \Rightarrow
     \;\;\;
     \begin{cases}
          ax - \ddot x + 2 \dot y = 0\\
-         by + \ddot y + 2 \dot x = 0
+         - by + \ddot y + 2 \dot x = 0
     \end{cases}
 \end{equation}
 
@@ -68,7 +61,7 @@
 \begin{displaymath}
     \begin{vmatrix}
         ax - \ddot x & 2 \dot y\\
-        2 \dot x & by + \ddot y
+        2 \dot x & - by + \ddot y
     \end{vmatrix}
     = 0 
 \end{displaymath}
@@ -85,15 +78,15 @@
 \begin{displaymath}
     \begin{vmatrix}
         a - \lambda^2 & 2 \lambda\;\\
-        2 \lambda & b + \lambda^2\;
+        2 \lambda & - b + \lambda^2\;
     \end{vmatrix}
 \end{displaymath}
 Определитель равен:
 \begin{align*}
-   (a - \lambda^2)(b + \lambda^2) - 4 \lambda^2 = 0\\
-    ab - b \lambda^2 + a \lambda^2 - \lambda^4 - 4 \lambda^2 = 0\\
+   (a - \lambda^2)(- b + \lambda^2) - 4 \lambda^2 = 0\\
+    - ab + b \lambda^2 + a \lambda^2 - \lambda^4 - 4 \lambda^2 = 0\\
     \boxed{
-    \lambda^4 + (b + 4 - a) \lambda^2 - ab = 0
+    \lambda^4 + (4 - a - b) \lambda^2 + ab = 0
     }
 \end{align*}
 
