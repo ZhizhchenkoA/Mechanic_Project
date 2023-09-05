@@ -1,6 +1,6 @@
 \documentclass[12pt, a4paper]{article}
 
-\usepackage[russian]{babel}
+\usepackage[russian, english]{babel}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -19,137 +19,152 @@
 \date{}
 \author{}
 \begin{document}
-\maketitle
-\tableofcontents
-\newpage
-\section{Вступление}
-
-\section{Линеаризация вблизи точек Лагранжа}
-
-Имеется система уравнений, описывающая движение тела вблизи коллинеарных точек Лагранжа  $L_1, L_2$:
-
-\begin{equation}
-\label{eq:linear}
-    \begin{cases}
-        \dot x = \frac{\partial H}{\partial p_x} = p_x + y\\
-        \dot y = \frac{\partial H}{\partial p_y} = p_y - x\\
-        \dot p_x = - \frac{\partial H}{\partial x} = p_y - x + ax\\
-        \dot p_y = - \frac{\partial H}{\partial y} = - p_x - y - by
-    \end{cases}
-\end{equation}
-где $ax, ay$ линейные части от $U_x, U_y$
-
-Из уравнений Гамильтона следует, что 
-
-\begin{equation}
-    \begin{cases}
-        ax = U_x = \ddot x - 2 \dot y\\
-        by = U_y = \ddot y + 2 \dot x
-    \end{cases}
-    \Rightarrow
-    \;\;\;
-    \begin{cases}
-         ax - \ddot x + 2 \dot y = 0\\
-         - by + \ddot y + 2 \dot x = 0
-    \end{cases}
-\end{equation}
-
-\subsection{Нахождение характеристического уравнения системы с помощью матриц}
-
-Для удобства нахождения характеристического уравнения запишем систему в матричной форму, где каждая строка обозначает одно из уравнений системы, а столбцы~--- переменные ($x$~---  первый столбец, $y$~--- второй столбец). Характеристическое уравнений будет соответствовать определителю данной матрицы, приравненному к нулю.\\ 
-
-\begin{displaymath}
-    \begin{vmatrix}
-        ax - \ddot x & 2 \dot y\\
-        2 \dot x & - by + \ddot y
-    \end{vmatrix}
-    = 0 
-\end{displaymath}
-Произведём замену переменных: 
-\begin{equation*}
-    \begin{cases}
-        y = x = 1 \\
-        \dot y = \dot x = \lambda \\
-        \ddot y = \ddot x = \lambda^2
-    \end{cases}
-\end{equation*}
-Перепишем матрицу с учётом этой замены и найдём её определитель
-
-\begin{equation*}
-    \begin{vmatrix}
-        a - \lambda^2 & 2 \lambda\;\\
-        2 \lambda & - b + \lambda^2\;
-    \end{vmatrix}
-\end{equation*}
-Определитель равен:
-\begin{align*}
-   (a - \lambda^2)(- b + \lambda^2) - 4 \lambda^2 = 0\\
-    - ab + b \lambda^2 + a \lambda^2 - \lambda^4 - 4 \lambda^2 = 0\\
-    \boxed{
-    \lambda^4 + (4 - a - b) \lambda^2 + ab = 0
-    }
-\end{align*}
-
-\subsection{Характеристическое уравнение с помощью производных высших порядков}
-
-Для начала необходимо выразить $\dot x$
-\begin{gather*}
-    a \dot x - \dddot x + 2 \ddot y = 0\\
-    \dot x = \frac{\dddot x - 2 \ddot y}{a}
-\end{gather*}
-
-\section{Проверка на устойчивость орбиты}
-
-Для проверки системы на устойчивость необходимо построить матрицу Гурвица, которая имеет общий вид
-
-\begin{equation}
-    \label{gurwits}
-    \begin{pmatrix}
-        a_1 & a_0 & 0 & 0\\
-        a_3 & a_2 & a_1 & a_0\\
-        0 & a_4 & a_3 & a_2\\
-        0 & 0 & 0 & 1
-    \end{pmatrix}
-\end{equation}
-Каждый угловой определитель данной матрицы должен быть больше нуля\\
-Запишем матрицу в нашем случае
-\begin{equation*}
-    \begin{pmatrix}
-        0 & ab & 0 & 0\\
-        0 & b - a - 4 & 0 & ab\\
-        0 & 1 & 0 & b - a - 4\\
-        0 & 0 & 0 & 1
-    \end{pmatrix}
-\end{equation*}
-
-Очевидно, что все угловые определители данной матрицы равны нулю, и, следовательно, система находится на грани устойчивости.
-
-\section{Периодические решения}
-
-Поиск периодических орбит будет осуществляться с помощью алгоритма градиентного спуска. 
-Для начала остановимся на этом алгоритме.
-
-\subsection{Градиентный спуск}
-
- Метод градиентного спуска, также называемый методом наискорейшего спуск, служит для нахождения минимального экстремума функции.\footnote{Важный момент: градиентный спуск не гарантирует поиск глобального экстремума функции. В случае с двумя и более переменными возможно также нахождение седловой точки. Для поиска глобального экстремума необходимо менять начальные значения переменных и шага сходимости} 
- Градиент функции определяется как:
-
- \begin{equation*}
-     \grad F(x, y, z) = \frac{\partial F(x, y, z)}{\partial x} \vec{i} + \frac{\partial F(x, y, z)}{\partial y} \vec{j}+ \frac{\partial F(x, y, z)}{\partial z} \vec{k} + \cdots
- \end{equation*}
-
-В нашем случае мы используем прямоугольную Декартову систему координат, где $\vec i$ и $\vec j$ - единичные вектора, направленные параллельно осям $x$  и $y$ соответственно. 
-Будем рассматривать задачу в плоскости $XOY$, поэтому координата  $z$ не используется.
-
-Метод реализуется путём последовательных итераций, где каждое следующее значение получается:
-\begin{gather*}
-    x_{n + 1} = x_n - \lambda_1 \,\frac{\partial F}{\partial x}\\
-    y_{n + 1} = y_n - \lambda_2 \,\frac{\partial F}{\partial y}
-\end{gather*}
-где $\lambda_1, \lambda_2$ --- коэффициенты сходимости, определяемые экспериментальным путём в зависимости от начальных условий. 
-Начальные значения $x_0, y_0$ выбираются по такому же принципу.
-% \bibliographystyle{alpha}
-% \bibliography{sample}
+    \maketitle
+    \tableofcontents
+    \newpage
 
 
+    \section{Вступление}
+
+
+    \section{Линеаризация вблизи точек Лагранжа}
+
+    Имеется система уравнений, описывающая движение тела вблизи коллинеарных точек Лагранжа  $L_1, L_2$:
+
+    \begin{equation}
+        \label{eq:linear}
+        \begin{cases}
+            \dot x = \frac{\partial H}{\partial p_x} = p_x + y\\
+            \dot y = \frac{\partial H}{\partial p_y} = p_y - x\\
+            \dot p_x = - \frac{\partial H}{\partial x} = p_y - x + ax\\
+            \dot p_y = - \frac{\partial H}{\partial y} = - p_x - y - by
+        \end{cases}
+    \end{equation}
+    где $ax, ay$ линейные части от $U_x, U_y$
+
+    Из уравнений Гамильтона следует, что
+
+    \begin{equation}
+        \begin{cases}
+            ax = U_x = \ddot x - 2 \dot y\\
+            by = U_y = \ddot y + 2 \dot x
+        \end{cases}
+        \Rightarrow
+        \;\;\;
+        \begin{cases}
+            ax - \ddot x + 2 \dot y = 0\\
+            - by + \ddot y + 2 \dot x = 0
+        \end{cases}
+    \end{equation}
+
+    \subsection{Нахождение характеристического уравнения системы с помощью матриц}
+
+    Для удобства нахождения характеристического уравнения запишем систему в матричной форму, где каждая строка обозначает одно из уравнений системы, а столбцы~--- переменные ($x$~---  первый столбец, $y$~--- второй столбец). Характеристическое уравнений будет соответствовать определителю данной матрицы, приравненному к нулю.\\
+
+    \begin{displaymath}
+        \begin{vmatrix}
+            ax - \ddot x & 2 \dot y       \\
+            2 \dot x     & - by + \ddot y
+        \end{vmatrix}
+        = 0
+    \end{displaymath}
+    Произведём замену переменных:
+    \begin{equation*}
+        \begin{cases}
+            y = x = 1 \\
+            \dot y = \dot x = \lambda \\
+            \ddot y = \ddot x = \lambda^2
+        \end{cases}
+    \end{equation*}
+    Перепишем матрицу с учётом этой замены и найдём её определитель
+
+    \begin{equation*}
+        \begin{vmatrix}
+            a - \lambda^2 & 2 \lambda\;       \\
+            2 \lambda     & - b + \lambda^2\;
+        \end{vmatrix}
+    \end{equation*}
+    Определитель равен:
+    \begin{align*}
+    (a - \lambda^2)(- b + \lambda^2)
+        - 4 \lambda^2 = 0\\
+        - ab + b \lambda^2 + a \lambda^2 - \lambda^4 - 4 \lambda^2 = 0\\
+        \boxed{
+            \lambda^4 + (4 - a - b) \lambda^2 + ab = 0
+        }
+    \end{align*}
+
+    \subsection{Характеристическое уравнение с помощью производных высших порядков}
+
+    Для начала необходимо выразить $\dot x$
+    \begin{gather*}
+        a \dot x - \dddot x + 2 \ddot y = 0\\
+        \dot x = \frac{\dddot x - 2 \ddot y}{a}
+    \end{gather*}
+
+
+    \section{Проверка на устойчивость орбиты}
+
+    Для проверки системы на устойчивость необходимо построить матрицу Гурвица, которая имеет общий вид
+
+    \begin{equation}
+        \label{gurwits}
+        \begin{pmatrix}
+            a_1 & a_0 & 0   & 0   \\
+            a_3 & a_2 & a_1 & a_0 \\
+            0   & a_4 & a_3 & a_2 \\
+            0   & 0   & 0   & 1
+        \end{pmatrix}
+    \end{equation}
+    Каждый угловой определитель данной матрицы должен быть больше нуля\\
+    Запишем матрицу в нашем случае
+    \begin{equation*}
+        \begin{pmatrix}
+            0 & ab        & 0 & 0         \\
+            0 & b - a - 4 & 0 & ab        \\
+            0 & 1         & 0 & b - a - 4 \\
+            0 & 0         & 0 & 1
+        \end{pmatrix}
+    \end{equation*}
+
+    Очевидно, что все угловые определители данной матрицы равны нулю, и, следовательно, система находится на грани устойчивости.
+
+
+    \section{Периодические решения}
+
+    Поиск периодических орбит будет осуществляться с помощью алгоритма градиентного спуска.
+    Для начала остановимся на этом алгоритме.
+
+    \subsection{Градиентный спуск}
+
+    Метод градиентного спуска, также называемый методом наискорейшего спуск, служит для нахождения минимального экстремума функции.\footnote{Важный момент: градиентный спуск не гарантирует поиск глобального экстремума функции. В случае с двумя и более переменными возможно также нахождение седловой точки. Для поиска глобального экстремума необходимо менять начальные значения переменных и шага сходимости}
+    Градиент функции определяется как:
+
+    \begin{equation*}
+        \grad F(x, y, z) = \frac{\partial F(x, y, z)}{\partial x} \vec{i} + \frac{\partial F(x, y, z)}{\partial y} \vec{j}+ \frac{\partial F(x, y, z)}{\partial z} \vec{k} + \cdots
+    \end{equation*}
+
+    В нашем случае мы используем прямоугольную Декартову систему координат, где $\vec i$ и $\vec j$ - единичные вектора, направленные параллельно осям $x$  и $y$ соответственно.
+    Будем рассматривать задачу в плоскости $XOY$, поэтому координата  $z$ не используется.
+
+    Метод реализуется путём последовательных итераций, где каждое следующее значение получается:
+    \begin{gather*}
+        x_{n + 1} = x_n - \lambda_1 \,\frac{\partial F}{\partial x}\\
+        y_{n + 1} = y_n - \lambda_2 \,\frac{\partial F}{\partial y}
+    \end{gather*}
+    где $\lambda_1, \lambda_2$ --- коэффициенты сходимости, определяемые экспериментальным путём в зависимости от начальных условий.
+    Начальные значения $x_0, y_0$ выбираются по такому же принципу.
+
+    \section{Метод численного интегрирования Leapfrog}
+
+    Метод leapfrog - один из методов численного интегрирования.
+
+    Пусть у нас имеется задача, в которой $a =  \ddot x = A(x)$, то есть ускорение можно выразить из начальных параметров.
+    Тогда для численного интегрирования можно использовать следующие преобразования:
+
+    \begin{gather*}
+        \dot q \left(t + \frac{\Delta t}{2} \right) = \dot q \left(t - \frac{\Delta t}{2} \right) + \ddot q (t) \cdot \Delta t\\
+        q \left(t + \Delta t \right) = q(t) + \dot q \left(t + \frac{\Delta t}{2} \right) \cdot \Delta t
+    \end{gather*}
+    где $q$ - обобщённая координата.
 \end{document}
