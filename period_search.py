@@ -17,20 +17,9 @@ def derivative(func):
     return wrapper
 
 
-x_diff = derivative(f)
+def gradient_one_var(N, xx, lmd, x_diff, f=f):
+    fig, ax = plt.subplots()
 
-x_plt = np.arange(0, 5, 0.1)
-y_plt = [f(x) for x in x_plt]
-plt.ion()
-fig, ax = plt.subplots()
-ax.grid = True
-ax.plot(x_plt, y_plt)
-N = 200  # число итераций
-xx = 0  # начальное значение
-lmd = 0.9  # шаг сходимости
-
-
-def gradient_one_var(N, xx, lmd, x_diff=x_diff, f=f):
     point = ax.scatter(xx, f(xx), color='red')
 
     for i in range(N):
@@ -43,4 +32,3 @@ def gradient_one_var(N, xx, lmd, x_diff=x_diff, f=f):
     print(xx)
 
 
-gradient_one_var(N, xx, lmd)
